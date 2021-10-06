@@ -1,0 +1,86 @@
+<Project>
+  <PropertyGroup>
+	  <PrimaryTargetStandardFrameworkNames>netstandard2.1</PrimaryTargetStandardFrameworkNames>
+	  <SecondaryTargetStandardFrameworkNames>netstandard2.0</SecondaryTargetStandardFrameworkNames>
+	  <TargetStandardFrameworkNames>$(SecondaryTargetStandardFrameworkNames);$(PrimaryTargetStandardFrameworkNames)</TargetStandardFrameworkNames>
+	  <PrimaryTargetNetFrameworkNames>net5.0</PrimaryTargetNetFrameworkNames>
+	  <SecondaryTargetNetFrameworkNames>netcoreapp3.1</SecondaryTargetNetFrameworkNames>
+	  <TargetNetFrameworkNames>$(PrimaryTargetNetFrameworkNames);$(SecondaryTargetNetFrameworkNames)</TargetNetFrameworkNames>
+	  
+	  <UnitTestProjectTargetFrameworkNames>$(TargetNetFrameworkNames)</UnitTestProjectTargetFrameworkNames>
+	  <RuntimeIdentifierNames>win81-x64;win81-x86;win81-arm;win81-arm64;win10-arm;win10-x64;win10-x86;win10-arm64;</RuntimeIdentifierNames>
+	  <AllAssetNames>runtime; build; native; contentfiles; analyzers</AllAssetNames>
+	  
+	  <ProductName>RazorTechnologies</ProductName>
+	  <ProjectTitle>Razor Technologies</ProjectTitle>
+
+	  <NeutralLanguage>en-US</NeutralLanguage>
+	  <LangVersion>latest</LangVersion>
+
+	  <RepositoryUrl>https://github.com/arsalanfallahpour/RazorTechnologies.git</RepositoryUrl>
+	  <ClasslibraryVersion>0.0.1</ClasslibraryVersion>
+	  <FileVersion>0.0.1</FileVersion>
+	  <AssemblyVersion>0.0.1</AssemblyVersion>
+
+	  <MicrosoftCodeAnalysisNetAnalyzersPackageVersion>3.3.2</MicrosoftCodeAnalysisNetAnalyzersPackageVersion>
+	  <MicrosoftNetCompilersToolsetPackageVersion>3.9.0-2.final</MicrosoftNetCompilersToolsetPackageVersion>
+	  <!--<MicrosoftCodeQualityAnalyzersPackageVersion>5.0.3</MicrosoftCodeQualityAnalyzersPackageVersion>-->
+	  <MicrosoftSourceLinkGitHubPackageVersion>1.0.0</MicrosoftSourceLinkGitHubPackageVersion>
+
+	  <XunitRunnerVisualStudioPrimaryPackageVersion>2.4.3</XunitRunnerVisualStudioPrimaryPackageVersion>
+	  <XunitRunnerVisualStudioSecondaryPackageVersion>2.4.0</XunitRunnerVisualStudioSecondaryPackageVersion>
+
+	  <MicrosoftNETTestSdkPackagePrimaryVersion>16.8.3</MicrosoftNETTestSdkPackagePrimaryVersion>
+	  <MicrosoftNETTestSdkPackageSecondaryVersion>16.5.0</MicrosoftNETTestSdkPackageSecondaryVersion>
+
+	  <CoverletCollectorPrimaryPackageVersion>3.0.2</CoverletCollectorPrimaryPackageVersion>
+	  <CoverletCollectorSecondaryPackageVersion>1.2.0</CoverletCollectorSecondaryPackageVersion>
+
+	  <XunitPrimaryPackageVersion>2.4.1</XunitPrimaryPackageVersion>
+	  <XunitSecondaryPackageVersion>2.4.0</XunitSecondaryPackageVersion>
+
+	  <NetPrimaryVersion>5.0.0</NetPrimaryVersion>
+	  <NetSecondaryVersion>3.1.2</NetSecondaryVersion>
+	  
+	  <EfCoreSecondaryPackageVarsion>$(NetSecondaryVersion)</EfCoreSecondaryPackageVarsion>
+
+	  <MicExtLogPrimaryPackageVersion>$(NetPrimaryVersion)</MicExtLogPrimaryPackageVersion>
+
+	  <MicExtConSecondaryPackageVersion>$(NetSecondaryVersion)</MicExtConSecondaryPackageVersion>
+	  <MicExtConPrimaryPackageVersion>$(NetPrimaryVersion)</MicExtConPrimaryPackageVersion>
+
+	  <MicExtDepInjAbstractionsSecondaryPackageVarsion>$(NetSecondaryVersion)</MicExtDepInjAbstractionsSecondaryPackageVarsion>
+	  <MicExtDepInjAbstractionsPrimaryPackageVarsion>$(NetPrimaryVersion)</MicExtDepInjAbstractionsPrimaryPackageVarsion>
+
+
+	  <MicExtIdeCorSecondaryPackageVarsion>$(NetSecondaryVersion)</MicExtIdeCorSecondaryPackageVarsion>
+	  <MicExtIdeCorPrimaryPackageVarsion>$(NetPrimaryVersion)</MicExtIdeCorPrimaryPackageVarsion>
+
+
+	  <MicExtDepInjSecondaryPackageVarsion>$(NetSecondaryVersion)</MicExtDepInjSecondaryPackageVarsion>
+	  <MicExtDepInjPrimaryPackageVarsion>$(NetPrimaryVersion)</MicExtDepInjPrimaryPackageVarsion>
+
+
+	  <MicExtConfSecondaryPackageVarsion>$(NetSecondaryVersion)</MicExtConfSecondaryPackageVarsion>
+	  <MicExtConfPrimaryPackageVarsion>$(NetPrimaryVersion)</MicExtConfPrimaryPackageVarsion>
+
+	  <MicExtAspMvcRazRunComSecondaryPackageVarsion>$(NetSecondaryVersion)</MicExtAspMvcRazRunComSecondaryPackageVarsion>
+	  <MicExtAspMvcRazRunComPrimaryPackageVarsion>$(NetPrimaryVersion)</MicExtAspMvcRazRunComPrimaryPackageVarsion>
+	  <AutoMapperExtMicDepInjPrimaryPackageVersion>8.1.1</AutoMapperExtMicDepInjPrimaryPackageVersion>
+	  <AutoMapperExtMicDepInjSecondaryPackageVersion>7.0.0</AutoMapperExtMicDepInjSecondaryPackageVersion>
+
+	  <AutoMapperPrimaryPackageVersion>10.1.1</AutoMapperPrimaryPackageVersion>
+	  <MediatRPrimaryPackageVersion>9.0.0</MediatRPrimaryPackageVersion>
+	  <MediatRExtMicDepInjPrimaryPackageVersion>$(MediatRPrimaryPackageVersion)</MediatRExtMicDepInjPrimaryPackageVersion>
+
+	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
+	  <EnableNullable>disable</EnableNullable>
+ 
+  </PropertyGroup>
+	
+	<PropertyGroup>
+		<GeneratedMSBuildEditorConfigFile>.\$(MSBuildProjectName).GeneratedMSBuildEditorConfig.editorconfig</GeneratedMSBuildEditorConfigFile>
+	</PropertyGroup>
+</Project>

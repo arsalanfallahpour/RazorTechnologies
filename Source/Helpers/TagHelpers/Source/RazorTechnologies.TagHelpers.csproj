@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>$(TargetStandardFrameworkNames)</TargetFrameworks>
+		<ClassLibName>RazorTechnologies.TagHelpers</ClassLibName>
+		<Authors>Arsalan Fallahpour</Authors>
+		<Description>$(ClassLibName) Framework library</Description>
+		<Summary>$(ClassLibName) Framework library</Summary>
+		<Copyright>Copyright Arsalan Fallahpour</Copyright>
+		<NeutralLanguage>$(NeutralLanguage)</NeutralLanguage>
+		<Title>$(ProjectTitle)</Title>
+		<PackageId>$(ClassLibName)</PackageId>
+		<Product>$(ProductName)</Product>
+		<PackageTags></PackageTags>
+		<RuntimeIdentifiers>$(RuntimeIdentifierNames)</RuntimeIdentifiers>
+		<Version>$(ClasslibraryVersion)</Version>
+		<AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
+		<FileVersion>$(FileVersion)</FileVersion>
+		<LangVersion>$(LangVersion)</LangVersion>
+		<Features>strict</Features>
+		<RootNamespace>$(ClassLibName)</RootNamespace>
+		<AssemblyName>$(ClassLibName)</AssemblyName>
+		<SignAssembly>true</SignAssembly>
+		<GeneratePackageOnBuild>$(GeneratePackageOnBuild)</GeneratePackageOnBuild>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<AssemblyOriginatorKeyFile>$(ClassLibName).snk</AssemblyOriginatorKeyFile>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<RepositoryUrl>$(RepositoryUrl)</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<Deterministic>true</Deterministic>
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+		<EnableNETAnalyzers>$(EnableNETAnalyzers)</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>$(EnforceCodeStyleInBuild)</EnforceCodeStyleInBuild>
+		<Nullable>$(EnableNullable)</Nullable>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="$(MicrosoftSourceLinkGitHubPackageVersion)" PrivateAssets="All" />
+	</ItemGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<PlatformTarget>AnyCPU</PlatformTarget>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|$(PrimaryTargetNetFrameworkNames)|AnyCPU'">
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|$(SecondaryTargetNetFrameworkNames)|AnyCPU'">
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+
+	<ItemGroup Condition=" ('$(TargetFramework)' == '$(PrimaryTargetNetFrameworkNames)') OR ('$(TargetFramework)' == '$(SecondaryTargetNetFrameworkNames)')">
+	</ItemGroup>
+
+
+
+	<ItemGroup Condition="'$(TargetFramework)'=='$(PrimaryTargetNetFrameworkNames)'">
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='$(SecondaryTargetNetFrameworkNames)'">
+	</ItemGroup>
+
+	<ItemGroup>
+	</ItemGroup>
+</Project>
