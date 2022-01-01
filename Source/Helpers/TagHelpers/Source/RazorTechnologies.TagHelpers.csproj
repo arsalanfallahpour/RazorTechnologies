@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>$(TargetStandardFrameworkNames)</TargetFrameworks>
+		<TargetFrameworks>$(TargetNetFrameworkNames)</TargetFrameworks>
 		<ClassLibName>RazorTechnologies.TagHelpers</ClassLibName>
 		<Authors>Arsalan Fallahpour</Authors>
 		<Description>$(ClassLibName) Framework library</Description>
@@ -41,6 +41,7 @@
 
 
 	<ItemGroup>
+		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="$(MicrosoftSourceLinkGitHubPackageVersion)" PrivateAssets="All" />
 	</ItemGroup>
 
@@ -50,18 +51,30 @@
 
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|$(PrimaryTargetNetFrameworkNames)|AnyCPU'">
-		<Optimize>true</Optimize>
+		<Optimize>False</Optimize>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|$(SecondaryTargetNetFrameworkNames)|AnyCPU'">
-		<Optimize>true</Optimize>
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+	  <Optimize>False</Optimize>
 	</PropertyGroup>
 
 
 	<ItemGroup Condition=" ('$(TargetFramework)' == '$(PrimaryTargetNetFrameworkNames)') OR ('$(TargetFramework)' == '$(SecondaryTargetNetFrameworkNames)')">
+		<PackageReference Include="Scrutor" Version="3.0.2" />
+		<PackageReference Include="DotNetCenter.Core" Version="$(DotNetCenterCoreTargetVersion)" />
 	</ItemGroup>
 
-
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='$(PrimaryTargetNetFrameworkNames)'">
 	</ItemGroup>
@@ -70,5 +83,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Core\Annotations\UiControls\Select\" />
+		<Folder Include="LayoutManager\Factory\" />
+		<Folder Include="LayoutManager\Generator\MetaData\" />
 	</ItemGroup>
 </Project>
