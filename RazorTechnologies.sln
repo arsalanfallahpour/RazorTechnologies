@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{D3EA4549-D0F3-475E-9318-3ED9A2D68EE3}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,15 +11,22 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FF5AF3FE-BBD2-472C-8616-571F64F09D15}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Source\Directory.Build.props = Source\Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8830B164-C538-4B32-B48C-A291BD640FC4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{9A064490-F07C-4FA8-AB0A-4005753640E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorTechnologies.TagHelpers", "Source\Helpers\TagHelpers\Source\RazorTechnologies.TagHelpers.csproj", "{F8855078-07F7-4FB1-B7E8-91FF743D8459}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6EE9EF88-2D85-48B8-9452-C304992CD536}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorTechnologies.TagHelpers.UnitTest", "Source\Helpers\TagHelpers\Tests\UnitTest\RazorTechnologies.TagHelpers.UnitTest.csproj", "{84258FF8-C27C-460C-A388-B6A08B39D174}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmarks", "Benchmarks", "{639EA76E-82C3-48D9-BB09-5559DE2FA78B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorTechnologies.TagHelpers.Benchmarks", "Source\Helpers\TagHelpers\Benchmarks\RazorTechnologies.TagHelpers.Benchmarks.csproj", "{1F7F2A81-5CF7-4800-BC33-456313E3F2B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +38,25 @@ Global
 		{F8855078-07F7-4FB1-B7E8-91FF743D8459}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8855078-07F7-4FB1-B7E8-91FF743D8459}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8855078-07F7-4FB1-B7E8-91FF743D8459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84258FF8-C27C-460C-A388-B6A08B39D174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84258FF8-C27C-460C-A388-B6A08B39D174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84258FF8-C27C-460C-A388-B6A08B39D174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84258FF8-C27C-460C-A388-B6A08B39D174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F7F2A81-5CF7-4800-BC33-456313E3F2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7F2A81-5CF7-4800-BC33-456313E3F2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7F2A81-5CF7-4800-BC33-456313E3F2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7F2A81-5CF7-4800-BC33-456313E3F2B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8830B164-C538-4B32-B48C-A291BD640FC4} = {D3EA4549-D0F3-475E-9318-3ED9A2D68EE3}
 		{9A064490-F07C-4FA8-AB0A-4005753640E9} = {D3EA4549-D0F3-475E-9318-3ED9A2D68EE3}
 		{F8855078-07F7-4FB1-B7E8-91FF743D8459} = {9A064490-F07C-4FA8-AB0A-4005753640E9}
+		{6EE9EF88-2D85-48B8-9452-C304992CD536} = {9A064490-F07C-4FA8-AB0A-4005753640E9}
+		{84258FF8-C27C-460C-A388-B6A08B39D174} = {6EE9EF88-2D85-48B8-9452-C304992CD536}
+		{639EA76E-82C3-48D9-BB09-5559DE2FA78B} = {9A064490-F07C-4FA8-AB0A-4005753640E9}
+		{1F7F2A81-5CF7-4800-BC33-456313E3F2B3} = {639EA76E-82C3-48D9-BB09-5559DE2FA78B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B5A16BD-7A9F-441C-ADB1-EACD0FB59DD0}
