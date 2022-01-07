@@ -1,6 +1,11 @@
-﻿using System.Text.Encodings.Web;
+﻿using System;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
+using DotNetCenter.Core;
+
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -25,6 +30,9 @@ namespace RazorTechnologies.TagHelpers.Core
                                       //, SubmitButtonText
                                       );
         }
+        public const string ContainerIdPrefix = "msc_";
+        public const string InnerContainerIdPrefix = "msic_";
+
         public abstract LayoutHeaderData LayoutHeaderData { get; set; }
         public abstract TagHelperStates TagHelperState { get; }
         public ILayoutManager LayoutManager { get; }
@@ -40,11 +48,11 @@ namespace RazorTechnologies.TagHelpers.Core
         {
             output.TagName = DefaultTagName;
             output.TagMode = DefaultTagMode;
+            output.Attributes.SetAttribute("id", $"{ContainerIdPrefix}{LayoutManager.Options.LayoutContainerId}");
             output.AddClass("w-100", HtmlEncoder.Default);
             output.AddClass("bg-transparent", HtmlEncoder.Default);
             output.AddClass("p-4", HtmlEncoder.Default);
             return base.ProcessAsync(context, output);
-
         }
     }
 }
