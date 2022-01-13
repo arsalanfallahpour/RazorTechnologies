@@ -18,8 +18,12 @@ namespace RazorTechnologies.TagHelpers.Core.BindingGateway
         {
             //??????
             //Title = apiDescription.ActionDescriptor.EndpointMetadata.
+
             ApiDescription = apiDescription ?? throw new ArgumentNullException(nameof(apiDescription));
-            MetaDataAttribute =  GetMetadataAttribute();
+            if(!TryGetMetadataAttribute(out var metadataAttribute))
+                return;
+            IsAnnotated = true; 
+            MetaDataAttribute = metadataAttribute;
             Title = MetaDataAttribute.Title;
             Uri = new Uri(ApiDescription.RelativePath, UriKind.Relative) ?? throw new ArgumentNullException(nameof(Uri));
             // - From ArgumentMetadatas
@@ -29,19 +33,23 @@ namespace RazorTechnologies.TagHelpers.Core.BindingGateway
             HttpMethod = new HttpMethod(ApiDescription.HttpMethod);
             ControllerActionDescriptor = (ControllerActionDescriptor)ApiDescription.ActionDescriptor;
             BindingApiOption = new BindingApiOption(ControllerActionDescriptor, HttpMethod);
+            
         }
-
-        private BindingApiMetadataAttribute GetMetadataAttribute()
+        private bool TryGetMetadataAttribute(out BindingApiMetadataAttribute attribute)
         {
+            attribute = null;
             var metadatas = ApiDescription.ActionDescriptor.EndpointMetadata;
             var metadatasEnumerator = metadatas.GetEnumerator();
             while(metadatasEnumerator.MoveNext())
             {
                 var current = metadatasEnumerator.Current;
-                if(current is BindingApiMetadataAttribute bindingMetadataAttr)
-                    return  bindingMetadataAttr;
+                if(current is BindingApiMetadataAttribute currentAttribute)
+                {
+                    attribute = currentAttribute;
+                    return true;
+                }
             }
-            throw new NullReferenceException("Attribute not placed on the Controller Action");
+            return false;
         }
 
         private IList<ParameterMetadata> GetParameterMetadatas()
@@ -72,6 +80,7 @@ namespace RazorTechnologies.TagHelpers.Core.BindingGateway
             }
             return parameterMetadatas;
         }
+        public bool IsAnnotated { get; } = false;
 
         public ApiDescription ApiDescription { get; }
         public ControllerActionDescriptor  ControllerActionDescriptor{ get; }
