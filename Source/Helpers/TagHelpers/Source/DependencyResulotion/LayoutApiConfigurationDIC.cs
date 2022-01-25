@@ -50,7 +50,8 @@ namespace RazorTechnologies.TagHelpers.DependencyResulotion
             {
                 var current = enumerator.Current;
                 var apiDescriotion = new ApiDescriptionWrapper(current);
-                appApiDescriptions.Add(apiDescriotion);
+                if (apiDescriotion.IsAnnotated)
+                    appApiDescriptions.Add(apiDescriotion);
             }
 
             services.AddSingleton<ILayoutManager, RazorTechnologies.TagHelpers.LayoutManager.LayoutManager>();

@@ -10,6 +10,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.HiddenInput
     public class HiddenInputControl : BaseInputControl<HiddenInputControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.hidden;
         public HiddenInputControl(ILayoutInputControlOptions options)
             : base(options)
         {

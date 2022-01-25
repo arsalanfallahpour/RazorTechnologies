@@ -18,9 +18,9 @@
 	  <LangVersion>latest</LangVersion>
 
 	  <RepositoryUrl>https://github.com/arsalanfallahpour/RazorTechnologies.git</RepositoryUrl>
-	  <ClasslibraryVersion>0.0.1</ClasslibraryVersion>
-	  <FileVersion>0.0.1</FileVersion>
-	  <AssemblyVersion>0.0.1</AssemblyVersion>
+	  <ClasslibraryVersion>0.2.1</ClasslibraryVersion>
+	  <FileVersion>0.2.1</FileVersion>
+	  <AssemblyVersion>0.2.1</AssemblyVersion>
 
 	  <DotNetCenterCoreTargetVersion>0.2.1</DotNetCenterCoreTargetVersion>
 

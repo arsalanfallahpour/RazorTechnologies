@@ -10,6 +10,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.EmailBox
     public class EmailBoxControl : BaseInputControl<EmailBoxControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.email;
         public EmailBoxControl(ILayoutInputControlOptions options)
             : base(options)
         {

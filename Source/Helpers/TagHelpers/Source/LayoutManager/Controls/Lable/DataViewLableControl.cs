@@ -14,6 +14,8 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.DataViewLable
         {
         }
 
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.text;
+
 
         //public static string GetHtmlRequestFormLableFieldContent(string properyName, string value, string tagUniqueId, string tagId, string tagName, string lable, string separator)
         public override IHtmlTagContent GetHtmlTagContent(IValueModel valueModel)

@@ -15,6 +15,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.MonthSelect
     public class MonthSelectControl : BaseInputControl<MonthSelectControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.select;
         public MonthSelectControl(ILayoutInputControlOptions options)
             : base(options)
         {

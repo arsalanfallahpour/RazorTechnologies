@@ -2,7 +2,7 @@
 
 namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.Common
 {
-    public interface IMediatableLayoutInputControl : IMediatableLayoutControl
+    public interface IMediatableLayoutInputControl : IMediatableLayoutControl, IUiInput
     {
     }
 }

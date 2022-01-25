@@ -23,5 +23,6 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.Common
         }
 
         public new ILayoutInputControlOptions Options { get; }
+        public abstract UiInputControlTypes UiInputControlType { get; }
     }
 }

@@ -15,6 +15,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.PhoneNumberBox
     public class PhoneNumberBoxControl : BaseInputControl<PhoneNumberBoxControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.text;
         public PhoneNumberBoxControl(ILayoutInputControlOptions options)
             : base(options)
         {

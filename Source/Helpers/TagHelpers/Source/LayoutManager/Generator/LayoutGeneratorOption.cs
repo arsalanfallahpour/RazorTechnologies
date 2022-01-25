@@ -1,13 +1,7 @@
-﻿using System;
-
-using DotNetCenter.Core;
-
-using RazorTechnologies.TagHelpers.Core.BindingGateway;
-using RazorTechnologies.TagHelpers.LayoutManager.Controls;
-using RazorTechnologies.TagHelpers.LayoutManager.Generator.Output;
+﻿
+using RazorTechnologies.TagHelpers.Core;
 using RazorTechnologies.TagHelpers.LayoutManager.Models;
 using RazorTechnologies.TagHelpers.LayoutManager.Models.Html;
-using RazorTechnologies.TagHelpers.LayoutManager.Segments;
 
 
 
@@ -16,7 +10,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Generator
     public class LayoutGeneratorOption : ILayoutGeneratorOptions
     {
         public LayoutGeneratorOption(LayoutApiModel apiModel
-                                      //,HtmlTagContent submitButtonContent
+            //,HtmlTagContent submitButtonContent
             )
         {
             ApiModel = apiModel;
@@ -32,6 +26,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Generator
         }
 
         public string Title => ApiModel.Title;
+        public CollabsibleStates CollabsibleState => ApiModel.MetadataAttribute.CollabsibleState;
         public LayoutTypes LayoutType { get; }
         public IHtmlTagAttrId LayoutId => ApiModel.LayoutId;
         public IHtmlTagAttrId LayoutFormId => ApiModel.LayoutFormId;

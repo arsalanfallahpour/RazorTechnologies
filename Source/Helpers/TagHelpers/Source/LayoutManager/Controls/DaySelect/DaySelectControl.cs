@@ -13,6 +13,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.DaySelect
 {
     public class DaySelectControl : BaseInputControl<DaySelectControlVMAttribute>
     {
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.select;
         public DaySelectControl(ILayoutInputControlOptions options)
             : base(options)
         {

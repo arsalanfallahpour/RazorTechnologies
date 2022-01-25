@@ -16,6 +16,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.PersianDatePicker
             : base(options)
         {
         }
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.text;
         //public static string GetHtmlRequestFormPersianDatePickerContent(string tagUniqueId, string tagId, string tagName, string lable, bool disabled, PersianDatePickerControlVMAttribute attribute)
         public override IHtmlTagContent GetHtmlTagContent(IValueModel valueModel)
         {

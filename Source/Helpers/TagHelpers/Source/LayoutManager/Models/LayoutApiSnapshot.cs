@@ -77,7 +77,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
                     throw new ArgumentNullException(nameof(dataProperty));
                 if (_properties.Any(o => o == dataProperty))
                     return false;
-                _properties.Add(new (dataProperty.BindingName, dataProperty.Name, dataProperty.UiControl?.Options?.HtmlTag?.UniqueId, dataProperty.IsCustomIgnored, dataProperty.IsCustomIgnoredBinding, dataProperty.ControlType));
+                _properties.Add(new (dataProperty.BindingName, dataProperty.Name, dataProperty.UiControl?.Options?.HtmlTag?.UniqueId, dataProperty.IsCustomIgnored, dataProperty.IsCustomIgnoredBinding, dataProperty.ControlType, dataProperty.UiInputControlType));
                 return true;
             }
 
@@ -100,7 +100,26 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
         }
         public class LayoutApiPropertySnapshot
         {
-            public LayoutApiPropertySnapshot(string bindingName, string name, HtmlTagAttrId uiControlId, bool isCustomIgnored, bool isIgnoredBinding, LayoutControlType layoutControlType)
+            public LayoutApiPropertySnapshot(string bindingName,
+                                             string name,
+                                             HtmlTagAttrId uiControlId,
+                                             bool isCustomIgnored,
+                                             bool isIgnoredBinding,
+                                             LayoutControlType layoutControlType,
+                                             UiInputControlTypes uiInputControlType)
+                : this(bindingName, name, uiControlId, isCustomIgnored, isIgnoredBinding, layoutControlType)
+            {
+             
+
+                UiInputControlType = uiInputControlType;
+            }
+
+            public LayoutApiPropertySnapshot(string bindingName,
+                                             string name,
+                                             HtmlTagAttrId uiControlId,
+                                             bool isCustomIgnored,
+                                             bool isIgnoredBinding,
+                                             LayoutControlType layoutControlType)
             {
                 if (string.IsNullOrEmpty(bindingName))
                     throw new ArgumentException($"'{nameof(bindingName)}' cannot be null or empty.", nameof(bindingName));
@@ -119,12 +138,15 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
                 LayoutControlType = layoutControlType ?? throw new ArgumentNullException(nameof(layoutControlType));
             }
 
+     
+
             public string BindingName { get; }
             public HtmlTagAttrId UiControlId { get; set; }
             public string Name { get; }
             public bool IsCustomIgnored { get; set; }
             public bool IsIgnoredBinding { get; }
             public LayoutControlType LayoutControlType { get; }
+            public UiInputControlTypes UiInputControlType { get; }
 
             public static bool operator ==(LayoutApiPropertySnapshot obj1, LayoutApiPropertySnapshot obj2)
     => obj1.Name == obj2.Name;

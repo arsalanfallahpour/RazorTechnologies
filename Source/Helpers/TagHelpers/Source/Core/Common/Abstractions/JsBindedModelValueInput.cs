@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
+using RazorTechnologies.TagHelpers.LayoutManager.Controls.Common;
+
 using static RazorTechnologies.TagHelpers.Core.JsBindedModelValues;
 
 namespace RazorTechnologies.TagHelpers.Core
@@ -40,17 +42,17 @@ namespace RazorTechnologies.TagHelpers.Core
         private readonly List<JsBindedModelValueInput> bindedInfo = new();
         public class JsBindedModelValueInput
         {
-            public JsBindedModelValueInput(Guid viewModelTypeGuid, string propertyName, string propertyValue)
+            public JsBindedModelValueInput(Guid viewModelTypeGuid, string propertyName, string propertyValue, bool forcedDisabled)
             {
                 ViewModelTypeGuid = viewModelTypeGuid;
                 PropertyName = propertyName;
                 PropertyValue = propertyValue;
+                UiForcedDisabled = forcedDisabled;
             }
-
             public Guid ViewModelTypeGuid { get; }
             public string PropertyName { get; }
             public string PropertyValue { get; }
-
+            public bool UiForcedDisabled { get; }
         }
 
     }
