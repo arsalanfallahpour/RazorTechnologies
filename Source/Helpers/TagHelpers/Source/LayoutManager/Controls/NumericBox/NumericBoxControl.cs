@@ -10,6 +10,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.NumericBox
     public class NumericBoxControl : BaseInputControl<NumericBoxControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.number;
         public NumericBoxControl(ILayoutInputControlOptions options)
             : base(options)
         {

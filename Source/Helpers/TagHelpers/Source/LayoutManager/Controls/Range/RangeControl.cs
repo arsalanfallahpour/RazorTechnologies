@@ -17,6 +17,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.Range
     public class RangeControl : BaseInputControl<RangeControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.range;
         public RangeControl(ILayoutInputControlOptions options)
             : base(options)
         {

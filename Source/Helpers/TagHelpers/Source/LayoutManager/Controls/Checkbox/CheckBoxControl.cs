@@ -18,6 +18,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.CheckBox
 {
     public class CheckBoxControl : BaseInputControl<CheckboxControlVMAttribute>
     {
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.checkbox;
 
         // use IArgumentMetadata argumentMetadata in builder of this class
         public CheckBoxControl(ILayoutInputControlOptions options)

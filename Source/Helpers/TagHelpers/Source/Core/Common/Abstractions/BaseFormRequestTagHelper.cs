@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-using System.Linq;
+    using System.Linq;
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
@@ -10,11 +10,12 @@ using System.Linq;
     using Microsoft.AspNetCore.Html;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Razor.TagHelpers;
-    using static RazorTechnologies.TagHelpers.Core.Ui.Utilities.HtmlUtilies;
-    using RazorTechnologies.Core.Common;
+
     using RazorTechnologies.TagHelpers.Core.THelper;
     using RazorTechnologies.TagHelpers.LayoutManager;
     using RazorTechnologies.TagHelpers.LayoutManager.Controls.Common;
+    using RazorTechnologies.TagHelpers.LayoutManager.Models;
+    using static RazorTechnologies.TagHelpers.LayoutManager.Models.LayoutApiSnapshotExtensions;
     public abstract class BaseFormRequestTagHelper<TRequestViewModel>
         : BaseRequestTagHelper, IFormRequestTagHelper
         where TRequestViewModel : BaseAppRequestViewModel
@@ -82,15 +83,15 @@ using System.Linq;
         {
             var layout = LayoutManager.GetLayoutString();
             var sb = new StringBuilder();
-                sb.Append("<script>");
-                sb.Append($"var redirectUri{LayoutManager.Options.LayoutFormId} = \'null\';");
-                sb.Append("$(document).ready(function(){ ");
+            sb.Append("<script>");
+            sb.Append($"var redirectUri{LayoutManager.Options.LayoutFormId} = \'null\';");
+            sb.Append("$(document).ready(function(){ ");
             //sb.Append($"document.getElementById('sid_{LayoutManager.Options.LayoutFormId}').innerText = '{SubmitButtonText}';" );
             sb.Append($"$('#sid_{LayoutManager.Options.LayoutFormId}').text('{SubmitButtonText}');");
             if (!string.IsNullOrEmpty(ReturnUrl))
-            sb.Append($"redirectUri{LayoutManager.Options.LayoutFormId} = \'{ReturnUrl}\';");
+                sb.Append($"redirectUri{LayoutManager.Options.LayoutFormId} = \'{ReturnUrl}\';");
             sb.Append(" });");
-                sb.Append("</script>");
+            sb.Append("</script>");
             sb.Append($"<div id='{InnerContainerIdPrefix}{LayoutManager.Options.LayoutContainerId}'>");
             sb.Append(layout.Content);
             sb.Append("</div>");
@@ -104,36 +105,35 @@ using System.Linq;
             if (JsBindedModelValues is null || JsBindedModelValues.Count < 1)
                 return string.Empty;
 
-            var sb = new StringBuilder();   
+            var sb = new StringBuilder();
             sb.Append("<script> $(document).ready(function(){");
             var enumJsBindedModelValues = JsBindedModelValues.GetEnumerator();
             while (enumJsBindedModelValues.MoveNext())
             {
                 var current = enumJsBindedModelValues.Current;
                 // TODO ApiSnapShotModelId
-                var parameter = LayoutManager.Options.LayoutGeneratorOutput?.DataBindings
-                    ?.Where(o => o?.ApiParameterRquestViewModelType?.GUID.CompareTo(current.ViewModelTypeGuid) == 0)?.FirstOrDefault();
+                var parameter = GetBindedParameter(current.ViewModelTypeGuid);
                 if (parameter is null)
                     continue;
-
-                var property= parameter
-                    ?.FirstOrDefault(o => o?.Name == current.PropertyName);
+                var property = parameter.GetBindedProperty(current.PropertyName);
 
                 if (property is null)
                     continue;
+
                 sb.Append($"let jqVar_dv_{property.UiControlId}_as = $('#{property.UiControlId}');");
-                switch (property.LayoutControlType.TypedValue)
+
+                switch (property.UiInputControlType)
                 {
-                    case LayoutControlTypes.TextBox:
+                    case UiInputControlTypes.text:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.EmailBox:
+                    case UiInputControlTypes.email:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.PhoneNumberBox:
+                    case UiInputControlTypes.tel:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.CheckBox:
+                    case UiInputControlTypes.checkbox:
                         if (!bool.TryParse(current.PropertyValue, out var @checked))
                             throw new Exception("Wrong value passed into model");
                         var value = @checked ? "true" : "false";
@@ -144,36 +144,38 @@ using System.Linq;
                         sb.Append('}');
                         //sb.Append($"$('#{property.UiControlId}').attr('checked','{value}');");
                         break;
-                    case LayoutControlTypes.NumericBox:
+                    case UiInputControlTypes.number:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.PersianDatePicker:
+                    case UiInputControlTypes.range:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.Range:
+                    case UiInputControlTypes.password:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.PasswordBox:
+                    case UiInputControlTypes.hidden:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
-                    case LayoutControlTypes.ComparePasswordBox:
-                        sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
-                        break;
-                    case LayoutControlTypes.DataViewLable:
-                        sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
-                        break;
-                    case LayoutControlTypes.HiddenInput:
+                    case UiInputControlTypes.select:
                         sb.Append($"jqVar_dv_{property.UiControlId}_as.val('{current.PropertyValue}');");
                         break;
                     default:
-                            throw new Exception("Unkown Controls cannot accept Value from ui");
+                        throw new Exception("Unkown Controls cannot accept Value from ui");
                 }
-                sb.Append($"jqVar_dv_{property.UiControlId}_as.prop('disabled', true);");
+                if(current.UiForcedDisabled && property.UiInputControlType != UiInputControlTypes.hidden)
+                    sb.Append($"jqVar_dv_{property.UiControlId}_as.prop('disabled', true);");
 
             }
 
             sb.Append("});</script>");
             return sb.ToString();
+        }
+
+
+        private LayoutApiSnapshot.LayoutApiParameterSnapshot GetBindedParameter(Guid targetViewModelTypeGuid)
+        {
+            return LayoutManager.Options.LayoutGeneratorOutput?.DataBindings
+                                ?.Where(o => o?.ApiParameterRquestViewModelType?.GUID.CompareTo(targetViewModelTypeGuid) == 0)?.FirstOrDefault();
         }
 
         //private void ApplyAdditionalAttributes(object instance, Type type, PropertyInfo[] props)

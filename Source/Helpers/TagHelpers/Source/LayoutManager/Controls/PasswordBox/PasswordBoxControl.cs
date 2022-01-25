@@ -13,6 +13,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.PasswordBox
     public class PasswordBoxControl : BaseInputControl<PasswordBoxControlVMAttribute>, IAutoComletable
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.password;
         public PasswordBoxControl(ILayoutInputControlOptions options)
             : base(options)
         {

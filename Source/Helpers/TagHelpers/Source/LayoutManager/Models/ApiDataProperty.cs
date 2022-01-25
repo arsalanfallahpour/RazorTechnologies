@@ -270,13 +270,22 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
                     constructor = type.GetConstructor(new Type[] { typeof(ILayoutInputControlOptions), typeof(IMediator) });
                     if (constructor is null)
                         return false;
-                    obj = Activator.CreateInstance(type, new LayoutInputControlOptions(
-                        layoutId,
-                        layoutContainerId,
-                        bindingViewModelOption,
-                        layoutFormId,
-                        layoutFormName, ControlAttribute, htmlTag, formState, false), mediator);
+                    var option = new LayoutInputControlOptions(
+                                            layoutId,
+                                            layoutContainerId,
+                                            bindingViewModelOption,
+                                            layoutFormId,
+                                            layoutFormName,
+                                            ControlAttribute,
+                                            htmlTag,
+                                            formState,
+                                            false);
+                    obj = Activator.CreateInstance(type, option, mediator);
                     IsMediaMediatableUiControl = true;
+
+                    if (obj is not IUiInput uiInput)
+                        throw new NotImplementedException(nameof(IUiInput));
+                    UiInputControlType = uiInput.UiInputControlType;
                     IsUiInputControl = true;
                 }
                 else if (appType.FindInterface(typeof(IMediatableLayoutControl).GUID, false))
@@ -302,7 +311,15 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
                         layoutContainerId,
                         bindingViewModelOption,
                         layoutFormId,
-                        layoutFormName, ControlAttribute, htmlTag, formState, false));
+                        layoutFormName,
+                        ControlAttribute, 
+                        htmlTag,
+                        formState,
+                        false
+                        ));
+                    if (obj is not IUiInput uiInput)
+                        throw new NotImplementedException(nameof(IUiInput));
+                    UiInputControlType = uiInput.UiInputControlType;
                     IsUiInputControl = true;
                 }
                 else if (appType.FindInterface(typeof(ILayoutControl).GUID, false))
@@ -314,7 +331,10 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
                     obj = Activator.CreateInstance(type, new LayoutControlOptions(
                                             layoutId,
                                             layoutContainerId,
-                                           bindingViewModelOption, ControlAttribute,htmlTag , formState));
+                                           bindingViewModelOption,
+                                           ControlAttribute,
+                                           htmlTag ,
+                                           formState));
                 }
 
 
@@ -367,5 +387,6 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Models
         public Attribute ControlAttribute { get; private set; }
         public BaseLayoutControl UiControl { get; private set; }
         public bool IsUiCollectionControl { get; private set; }
+        public UiInputControlTypes UiInputControlType { get; private set; }
     }
 }

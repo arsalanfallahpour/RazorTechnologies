@@ -10,6 +10,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.TextBox
     public class TextBoxControl : BaseInputControl<TextBoxControlVMAttribute>
     {
         // use IArgumentMetadata argumentMetadata in builder of this class
+        public override UiInputControlTypes UiInputControlType => UiInputControlTypes.text;
         public TextBoxControl(ILayoutInputControlOptions options)
             : base(options)
         {
