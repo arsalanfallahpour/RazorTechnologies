@@ -13,15 +13,12 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.Attributes
     [System.AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public class CheckboxControlVMAttribute : BaseViewModelValidationAttribute, IViewModelControlAttribute
     {
-        public CheckboxControlVMAttribute(bool intialChecked = false, CheckboxApplyMemberCondition applyMemberConditionTo = CheckboxApplyMemberCondition.NoneOfMembers, string toolTip = "", bool enabled = true)
+        public CheckboxControlVMAttribute(CheckboxApplyMemberCondition applyMemberConditionTo = CheckboxApplyMemberCondition.NoneOfMembers, string toolTip = "")
         {
-            InitialChecked = intialChecked;
             ToolTip = toolTip;
-            Enabled = enabled;
             ApplyMemberConditionTo = applyMemberConditionTo;
         }
 
-        public bool InitialChecked { get; private set; }
         public string ToolTip { get; private set; }
         public bool Enabled { get; }
         public string[] DependentMemberNames { get; set; }
@@ -126,8 +123,8 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.Attributes
                       || ReversedDependentMemberNames is null || ReversedDependentMemberNames.Length < 1)
                         return true;
                     ValidateMember(checkedValue, false, validationContext, DependentMemberNames, ref isErrorOccured, out errorMembers, out errorContent);
-                    ValidateMember(checkedValue, false, validationContext, ReversedDependentMemberNames, ref isErrorOccured, out errorMembers, out string errorContentReversedMembers);
-                    errorContent = errorContent.Insert(errorContent.Length - 1, errorContentReversedMembers);
+                    ValidateMember(checkedValue, true, validationContext, ReversedDependentMemberNames, ref isErrorOccured, out errorMembers, out string errorContentReversedMembers);
+                    errorContent = errorContent.Insert(errorContent.Length == 0 ? 0 : errorContent.Length - 1, errorContentReversedMembers);
                     break;
                 default:
                     throw new NotSupportedException(nameof(ApplyMemberConditionTo));

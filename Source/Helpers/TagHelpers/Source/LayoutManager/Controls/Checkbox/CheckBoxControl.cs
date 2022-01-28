@@ -43,27 +43,18 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.CheckBox
             var sb = new StringBuilder();
             sb.Append(" <div class='form-check  mb-3 pt-1' style='position: relative;'>");
             sb.AppendFormat("<label for='{0}' class='form-check-label' style='margin-top: 10px;'> {1} </label>", Options.HtmlTag.UniqueId, Options.HtmlTag.Lable);
-            var checkedText = string.Empty;
-            if(Options.ForceDisabled)
-                checkedText = RenderHtmlElementCheckedAttribute(Attribute.InitialChecked);
-            else
-                checkedText = RenderHtmlElementCheckedAttribute(parsedValue);
-
-            var disabledText = string.Empty;
-            if(Options.HtmlTag.Disabled)
-                disabledText = RenderHtmlElementDisabledAttribute(false);
-            else
-                disabledText = RenderHtmlElementDisabledAttribute(Attribute.Enabled);
+            var checkedText = RenderHtmlElementCheckedAttribute(false);
+            var disabledText = RenderHtmlElementDisabledAttribute(true);
 
             sb.AppendFormat("<input type='checkbox' id='{0}' name='{1}' {4} value='' placeholder='...' class='form-check-input' style='margin-top: 8px!important; padding-right: 19px!important;padding-top: 19px !important;'  {2} {3}/>", Options.HtmlTag.UniqueId, Options.HtmlTag.Name, checkedText, disabledText, RenderHtmlElementAttribute(Options.HtmlTag.Form, Options.HtmlTag.Form));
 
             var jqArrayVarDependentFields = $"jqVarCheckBoxDependentFields_{Options.HtmlTag.UniqueId}";
             var jqArrayVarReversedDependentFields = $"jqVarCheckBoxReversedDependentFields_{Options.HtmlTag.UniqueId}";
-            var jqVarNameisEnumerated = $"isEnumerated_{Options.HtmlTag.UniqueId}";
+            var jqVarNameIsEnumerated = $"isEnumerated_{Options.HtmlTag.UniqueId}";
 
 
             sb.Append(" <script>");
-            sb.Append($"var {jqVarNameisEnumerated} = false;");
+            sb.Append($"var {jqVarNameIsEnumerated} = false;");
             if(Attribute.ApplyMemberConditionTo == CheckboxApplyMemberCondition.AllMembers ||
             Attribute.ApplyMemberConditionTo == CheckboxApplyMemberCondition.ReverseDependentMembers)
             {
@@ -81,20 +72,22 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.CheckBox
                     break;
 
                 case CheckboxApplyMemberCondition.DependentMembers:
-                    sb.Append($"{RenderDependentTagToggleScript(Options.BindingViewModelOption.ApiParameterName, $"applyDependentFields_{Options.HtmlTag.UniqueId}", Attribute.DependentMemberNames, $"{jqVarNameisEnumerated}", false)}");
+                    sb.Append($"{RenderDependentTagToggleScript(Options.BindingViewModelOption.ApiParameterName, $"applyDependentFields_{Options.HtmlTag.UniqueId}", Attribute.DependentMemberNames, $"{jqVarNameIsEnumerated}", false)}");
                     sb.Append($"{jqVarNameTag}.click(()=>{{ applyDependentFields_{Options.HtmlTag.UniqueId}();}});");
                     break;
                 case CheckboxApplyMemberCondition.ReverseDependentMembers:
                     Attribute.ValidateMemebers();
-                    sb.Append($"{RenderDependentTagToggleScript(Options.BindingViewModelOption.ApiParameterName, $"applyReversedDependentFields_{Options.HtmlTag.UniqueId}", Attribute.ReversedDependentMemberNames, $"{jqVarNameisEnumerated}", true)}");
+                    sb.Append($"{RenderDependentTagToggleScript(Options.BindingViewModelOption.ApiParameterName, $"applyReversedDependentFields_{Options.HtmlTag.UniqueId}", Attribute.ReversedDependentMemberNames, $"{jqVarNameIsEnumerated}", true)}");
                     sb.Append($"{jqVarNameTag}.click(()=>{{applyReversedDependentFields_{Options.HtmlTag.UniqueId}();}});");
                     break;
                 case CheckboxApplyMemberCondition.AllMembers:
                     Attribute.ValidateMemebers();
+                    sb.Append($"{RenderDependentTagToggleScript(Options.BindingViewModelOption.ApiParameterName, $"applyDependentFields_{Options.HtmlTag.UniqueId}", Attribute.DependentMemberNames, $"{jqVarNameIsEnumerated}", false)}");
+                    sb.Append($"{RenderDependentTagToggleScript(Options.BindingViewModelOption.ApiParameterName, $"applyReversedDependentFields_{Options.HtmlTag.UniqueId}", Attribute.ReversedDependentMemberNames, $"{jqVarNameIsEnumerated}", true)}");
                     sb.Append($"{jqVarNameTag}.click(()=>{{applyDependentFields_{Options.HtmlTag.UniqueId}();}});");
                     sb.Append($"{jqVarNameTag}.click(()=>{{applyReversedDependentFields_{Options.HtmlTag.UniqueId}();}});");
-                    sb.Append($"{jqVarNameTag}.click(applyDependentFields_{Options.HtmlTag.UniqueId});");
-                    sb.Append($"{jqVarNameTag}.click(applyReversedDependentFields_{Options.HtmlTag.UniqueId});");
+                    //sb.Append($"{jqVarNameTag}.click(applyDependentFields_{Options.HtmlTag.UniqueId});");
+                    //sb.Append($"{jqVarNameTag}.click(applyReversedDependentFields_{Options.HtmlTag.UniqueId});");
                     break;
                 default:
                     throw new NotSupportedException(nameof(Attribute.ApplyMemberConditionTo));
