@@ -31,6 +31,8 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
         private readonly List<LayoutScope> _scopes = new();
         public const string AltFormPrefix = "altf_";
         public const string FormValidatiorPrefix = "sve_";
+        public const string FormValidatiorLayoutContextPrefix = "fvlcnxt_";
+        public const string FormValidatiorTagContextPrefix = "fvtcnxt_";
         public const string FormValidatorRendererPrefix = "sjfv_";
         public LayoutTypes LayoutType { get; }
         public LayoutApiModel LayoutApiModel { get; private set; }
@@ -43,7 +45,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
         public ILayoutString GetLayoutString()
         {
             var sb = new StringBuilder();
-            sb.Append("<div id=\'lb_cont\' style=\'width:100%;\'>");
+            sb.Append($"<div id=\'{FormValidatiorLayoutContextPrefix}{LayoutApiModel.LayoutId}\' style=\'width:100%;\'>");
             sb.Append(Form.GenerateLayout());
             sb.Append(GetScopeGroupsLayoutString());
             sb.Append("</div>");
@@ -70,7 +72,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
                 var parameter = enumParameters.Current;
                 var scope = new LayoutScope(LayoutApiModel.ApiType == Common.ApiTypes.Read, LayoutApiModel.MetadataAttribute.IgnoreParametersDiscovery);
                 // TODO Make Unique Ids
-                sb.Append($"<div id='lb_main' class='' style=''>");
+                sb.Append($"<div  id='lb_main' class='' style=''>");
                 sb.Append(RenderScrips());
                 sb.Append(scope.GetLayoutString(ref parameter));
                 sb.Append($"<div id='{AltFormPrefix}{LayoutApiModel.LayoutContainerId}'></div>");
@@ -114,7 +116,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
             sb.Append('}');
             sb.Append($"else if(status !== 'success'){{  alertSomeThingWentWrong(); }}");
             sb.Append('}');
-            sb.Append($"function are_{LayoutApiModel.LayoutId}(data, status, object) {{  if(request.status === 400){{  {FormValidatiorPrefix}{LayoutApiModel.LayoutId}(request.responseJSON.errors);}}}}");
+            sb.Append($"function are_{LayoutApiModel.LayoutId}(data, status, object) {{  if(request.status === 400){{  {FormValidatiorPrefix}{LayoutApiModel.LayoutId}(request.responseJSON.errors, '{FormValidatiorLayoutContextPrefix}{LayoutApiModel.LayoutId}');}}}}");
             sb.Append($"{RenderJqAjaxPostRequest($"aj_{LayoutApiModel.LayoutId}", $"ars_{LayoutApiModel.LayoutId}", $"are_{LayoutApiModel.LayoutId}", $"{LayoutApiModel.RelativePath}", GetJsAjaxDataObjectFromFormFields(LayoutApiModel.ExportDataParameters(), new()), LayoutApiModel.ExportDataParameters())}");
             sb.Append($"event.preventDefault();");
             sb.Append($"aj_{LayoutApiModel.LayoutId}();");
@@ -146,12 +148,12 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
             var validationWrapperId = $"{validationId}_'+formFieldName+'{ValidationWrapperPostFix}";
             var validationContainerId = $"{validationId}_'+order+'{ValidationContainerPostFix}";
             var validationBadgeId = $"{validationId}_'+order+'{ValidationBadgePostFix}";
-            return $"function {funcName}(order, fieldTagName, message) {{ " +
+            return $"function {funcName}(order, fieldTagName, message, contextId) {{ " +
                    $"let formFieldName = fieldTagName.replace('.', '_');" +
                    $"let formFieldValidationWrapperId = '{validationWrapperId}';" +
                    $"let formFieldValidationContainerId = '{validationContainerId}';" +
                    $"let formFieldValidationBadgeId = '{validationBadgeId}';" +
-                   $"let jqformField = $('[name=\\''+fieldTagName+'\\']').first();" +
+                   $"let jqformField = $('#' + contextId + ' [name=\\''+fieldTagName+'\\']').first();" +
                    $"var {jqVarValidationContainer} = $('#' + formFieldValidationContainerId);" +
                    $"var {jqVarValidationBadge} = $('#' + formFieldValidationBadgeId);" +
                    $"var {jqVarValidationWrapper} = $('#' + formFieldValidationWrapperId);" +
@@ -202,7 +204,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
         public const string ValidationBadgePostFix = "_vb";
         public static  string RenderJsFormValidator(string funcName, string validatorFuncName)
             => $"{RenderJsFormValidationErrors(validatorFuncName)}" +
-                $"function {funcName}(errorArray) {{  " +
+                $"function {funcName}(errorArray, contextId) {{  " +
                      $"var message = '';" +
                             $"var errorKeys = Object.keys(errorArray);" +
                              $" for(d=0;d<errorKeys.length;d++)" +
@@ -213,7 +215,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager
                                             $"let currentInnerErrorMessage  = currentInnerError[h];" +
                                             $"let tagName  = errorKeys[d];" +
                                               $"message = ((currentInnerErrorMessage === undefined) ? '' : currentInnerErrorMessage);" +
-                                              $"{validatorFuncName}(h,  tagName, message);" +
+                                              $"{validatorFuncName}(h,  tagName, message, contextId);" +
 
                                       "}" +
                              "}" +
