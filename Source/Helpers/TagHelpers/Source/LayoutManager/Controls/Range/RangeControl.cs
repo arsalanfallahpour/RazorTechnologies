@@ -29,7 +29,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.Range
         {
             var sb = new StringBuilder();
             sb.Append(" <div class='input-group mb-4' style='position: relative;'>");
-            sb.AppendFormat("<label for='{0}' class='input-group-text' style=''> {1} </label>", Options.HtmlTag.UniqueId, Options.HtmlTag.Lable);
+            sb.AppendFormat("<label for='{0}' class='input-group-text' style='max-width:200px;'> {1} </label>", Options.HtmlTag.UniqueId, Options.HtmlTag.Lable);
             sb.Append($"<input type='range' class='range range-sm' id='{Options.HtmlTag.UniqueId}' {RenderHtmlElementAttribute(Options.HtmlTag.Form, Options.HtmlTag.Form)} value='{modelValue.Content}' style='' {RenderHtmlElementDisabledAttribute(!Options.ForceDisabled)}/>");
             sb.Append(" </div>");
             return new HtmlTagContent(sb.ToString());

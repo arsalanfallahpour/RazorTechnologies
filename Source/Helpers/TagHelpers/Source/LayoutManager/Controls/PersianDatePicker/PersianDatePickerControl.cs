@@ -26,7 +26,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.PersianDatePicker
             sb.Append(" <div class='input-group mb-4 pt-1'>");
             sb.AppendFormat("<label for='{0}' class='input-group-text' style=''> {1} </label>", Options.HtmlTag.UniqueId, Options.HtmlTag.Lable);
             //sb.AppendFormat("<input type='hidden' id='{0}' name='{1}' value='' class='form-control' style=''/>", tagId, tagName, lable);
-            sb.AppendFormat($"<input type='text' id='{{0}}' name='{{1}}' value='' placeholder='...' class='form-control' style='' {RenderHtmlElementDisabledAttribute(!Options.HtmlTag.Disabled)} {RenderHtmlElementAttribute(Options.HtmlTag.Form, Options.HtmlTag.Form)}/>", Options.HtmlTag.Id, Options.HtmlTag.Name);
+            sb.AppendFormat($"<input type='text' id='{{0}}' name='{{1}}' value='' placeholder='...' class='form-control' style='max-width:200px;' {RenderHtmlElementDisabledAttribute(!Options.HtmlTag.Disabled)} {RenderHtmlElementAttribute(Options.HtmlTag.Form, Options.HtmlTag.Form)}/>", Options.HtmlTag.Id, Options.HtmlTag.Name);
             sb.Append(" </div>");
             sb.Append(
                 "<script>$(document).ready(" +

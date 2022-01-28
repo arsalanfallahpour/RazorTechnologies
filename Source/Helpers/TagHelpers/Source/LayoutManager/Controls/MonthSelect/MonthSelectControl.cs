@@ -28,7 +28,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.MonthSelect
             sb.Append(" <div style='' class='input-group mb-4 pt-1'>");
             sb.AppendFormat($"<label for='{Options.HtmlTag.Name}' class='input-group-text' style=''> {{0}} </label>", Options.HtmlTag.Lable);
             //While Using Ajax script dont need uncommented code
-            sb.Append($"<select id='{Options.HtmlTag.UniqueId}' name='{Options.HtmlTag.Name}' title=''  style='' class='form-select' {RenderHtmlElementDisabledAttribute(!Options.ForceDisabled)}>");
+            sb.Append($"<select id='{Options.HtmlTag.UniqueId}' name='{Options.HtmlTag.Name}' title=''  style='max-width:200px;' class='form-select' {RenderHtmlElementDisabledAttribute(!Options.ForceDisabled)}>");
             sb.Append($"<option value=''>انتخاب ماه سال ...</option>");
 
             for (int i = 1; i <= 12; i++)

@@ -25,7 +25,7 @@ namespace RazorTechnologies.TagHelpers.LayoutManager.Controls.NumericBox
             sb.AppendFormat("<label for='{0}' class='input-group-text' style=''> {1} </label>", Options.HtmlTag.UniqueId, Options.HtmlTag.Lable);
             //While Using Ajax script dont need uncommented code
             //sb.AppendFormat("<input type='text' Id='{0}' name='{1}' data-val='true' data-val-maxlength='تعداد کاراکتر ها بیشتر از حد انتظار می باشد' val-maxlength-max='100' data-val-minlength='تعداد کاراکتر ها کمتر از حد انتظار می باشد'  data-val-minlength-min='3' data-val-required='اطلاعات فیلد را وارد فرمایید' maxlength='100' value='' placeholder='...' class='form-control' {3} />", tagId, tagName, lable/*, required ? " required " : "*/);
-            sb.AppendFormat("<input type='number' id='{0}' name='{1}' {9} value='{8}' placeholder='{6}...' min='{3}' max='{4}' step='{5}' class='form-control' style='' {7} />",
+            sb.AppendFormat("<input type='number' id='{0}' name='{1}' {9} value='{8}' placeholder='{6}...' min='{3}' max='{4}' step='{5}' class='form-control' style='max-width:200px;' {7} />",
                             Options.HtmlTag.UniqueId,
                             Options.HtmlTag.Name,
                             widthStyle,

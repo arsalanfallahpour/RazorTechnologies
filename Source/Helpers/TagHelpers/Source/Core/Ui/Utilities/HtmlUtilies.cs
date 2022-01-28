@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Html;
+
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 using RazorTechnologies.Core.Common;
 using RazorTechnologies.TagHelpers.LayoutManager.Generator;
@@ -11,6 +15,17 @@ namespace RazorTechnologies.TagHelpers.Core.Ui.Utilities
     public static class HtmlUtilies
     {
         #region Html
+        public static IHtmlContent WrapElementsWithDiv(this List<IHtmlContent> elements, string classValue)
+        {
+            TagBuilder div = new TagBuilder("div");
+            div.AddCssClass(classValue);
+            foreach (IHtmlContent element in elements)
+            {
+                div.InnerHtml.AppendHtml(element);
+            }
+
+            return div;
+        }
         public static string RenderHtmlElementDisabledAttribute(bool enabled)
     => !enabled ? "disabled" : string.Empty;
         public static string RenderHtmlElementCheckedAttribute(bool isChecked)
